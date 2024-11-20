@@ -1,0 +1,11 @@
+﻿Nome,Quantidade,Componente
+"U1",1," Arduino Uno R3"
+"USensorTemperatura",1," Sensor de temperatura [TMP36]"
+"MetermultimetroTemperatura",1,"Tensão Multímetro"
+"DledVermelho",1,"Vermelho LED"
+"DledAzul",1,"Azul LED"
+"RresistorLEDVermelho, RresistorLEDAzul, RresistenciaMotor, RresistorLEDAmarelo",4,"300 Ω Resistor"
+"MmotorDC",1," Motor de engrenagem de uso não profissional"
+"Q1",1," TIP120"
+"PIEZObuzina",1," Piezo"
+"DledVerde",1,"Verde LED"

@@ -1,0 +1,77 @@
+// C++ code
+
+const int sensor = A0;
+
+const int pinoLedVermelho = 2;
+const int pinoLedVerde = 3;
+const int pinoLedAzul = 4;
+
+const int pinoMotor = 13;
+const int pinoBuzina = 12;
+
+const int tonBuzina = 1500;
+
+void setup()
+{
+  Serial.begin(9600);
+
+  pinMode(pinoMotor, OUTPUT);
+  pinMode(pinoBuzina, OUTPUT);
+
+  pinMode(pinoLedVermelho, OUTPUT);
+  pinMode(pinoLedVerde, OUTPUT);
+  pinMode(pinoLedAzul, OUTPUT);
+}
+
+void loop()
+{
+  float leituraSensor = analogRead(sensor);
+  float tensao = (5.0 * leituraSensor) / 1023.0;
+  float temperatura = (tensao - 0.5) * 100.0;
+
+  Serial.println("[Dados do Sensor de Temperatura]");
+  Serial.print("Tensão de Saída: ");
+  Serial.print(tensao);
+  Serial.println(" V");
+  Serial.print("Temperatura: ");
+  Serial.print(temperatura);
+  Serial.println(" °C");
+  Serial.println();
+
+  controlarSistema(temperatura);
+
+  delay(1000);
+}
+
+void controlarSistema(float temperatura)
+{
+  // Resetar LEDs e atuadores
+  digitalWrite(pinoMotor, LOW);
+  digitalWrite(pinoLedVermelho, LOW);
+  digitalWrite(pinoLedVerde, LOW);
+  digitalWrite(pinoLedAzul, LOW);
+  noTone(pinoBuzina);
+
+  if (temperatura >= 50)
+  {
+    // Situação de emergência
+    digitalWrite(pinoLedVermelho, HIGH);
+    tone(pinoBuzina, tonBuzina);
+  }
+  else if (temperatura >= 30)
+  {
+    // Acionar motor
+    digitalWrite(pinoMotor, HIGH);
+    digitalWrite(pinoLedVerde, HIGH);
+  }
+  else if (temperatura > 0)
+  {
+    // Temperatura normal
+    digitalWrite(pinoLedVerde, HIGH);
+  }
+  else
+  {
+    // Temperatura baixa
+    digitalWrite(pinoLedAzul, HIGH);
+  }
+}
